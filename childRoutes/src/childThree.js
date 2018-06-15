@@ -7,11 +7,11 @@ export class childThree{
         this.router = router;
         config.map([ 
     {route: ['','blank'], name: 'blank', nav:true, moduleId: 'blank', title:'blank' },
-    {route: 'childTwo', name: 'childTwo', nav:true, moduleId: 'childTwo', title:'childTwo' }
+    {route: 'childOne', name: 'childOne', nav:true, moduleId: 'childOne', title:'childOne' }
     ]);
     }
     goToChild(){
-        this.router.navigateToRoute('childTwo')
+        this.router.navigateToRoute('childOne')
     }
 
 }

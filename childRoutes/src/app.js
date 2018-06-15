@@ -1,3 +1,5 @@
+import 'bootstrap';
+
 import {inject} from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 @inject(Router)
@@ -7,6 +9,7 @@ export class App {
     this.router = router;
     config.map([ 
 {route: ['','blank'], name: 'blank', nav:true, moduleId: 'blank', title:'blank' },
+{route: 'sideBySide', name: 'sideBySide', nav:true, moduleId: 'sideBySide', title:'sideBySide' },
 {route: 'childOne', name: 'childOne', nav:true, moduleId: 'childOne', title:'childOne' }
 ]);
 
@@ -18,8 +21,11 @@ export class App {
 
 
   goToChild(){
-    this.router.navigateToRoute('childOne')
+    this.router.navigateToRoute('childOne');
   }
 
+  goToSideBySide(){
+    this.router.navigateToRoute('sideBySide');
+  }
 
 }
