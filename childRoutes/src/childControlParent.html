@@ -1,0 +1,9 @@
+<template>
+        <div style="width:100%; height:1000px; background: rgb(170, 0, 165)">
+            <button class="btn btn-dark" click.delegate="selfControl()" > Set Self Router</button>
+            <button class="btn btn-dark" click.delegate="parentControl()" >Set Parent Router</button>
+            <br/>
+            <router-view name="child"></router-view>
+        </div>
+
+</template>

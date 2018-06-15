@@ -10,6 +10,7 @@ export class App {
     config.map([ 
 {route: ['','blank'], name: 'blank', nav:true, moduleId: 'blank', title:'blank' },
 {route: 'sideBySide', name: 'sideBySide', nav:true, moduleId: 'sideBySide', title:'sideBySide' },
+{route: 'childControlParent', name: 'childControlParent', nav:true, moduleId: 'childControlParent', title:'childControlParent' },
 {route: 'childOne', name: 'childOne', nav:true, moduleId: 'childOne', title:'childOne' }
 ]);
 
@@ -26,6 +27,10 @@ export class App {
 
   goToSideBySide(){
     this.router.navigateToRoute('sideBySide');
+  }
+
+  goToChildControlParent(){
+    this.router.navigateToRoute('childControlParent');
   }
 
 }

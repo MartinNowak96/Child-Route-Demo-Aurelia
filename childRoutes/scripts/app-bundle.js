@@ -226,6 +226,47 @@ define('childOne',['exports', 'aurelia-framework', 'aurelia-router'], function (
     }()) || _class);
 });
 define('text!childOne.html', ['module'], function(module) { module.exports = "<template>\r\n        <div style=\"width:100%; height:1000px; background: rgb(110, 220, 114)\">\r\n    <h2>Child One</h2>\r\n    <button click.delegate=\"goToChild()\">Go to Child Page</button>\r\n    <router-view></router-view>\r\n    </div>\r\n</template>"; });
+define('childControlParent',['exports', 'aurelia-framework', 'aurelia-router'], function (exports, _aureliaFramework, _aureliaRouter) {
+    'use strict';
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.childControlsParent = undefined;
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    var _dec, _class;
+
+    var childControlsParent = exports.childControlsParent = (_dec = (0, _aureliaFramework.inject)(_aureliaRouter.Router), _dec(_class = function () {
+        childControlsParent.prototype.configureRouter = function configureRouter(config, router) {
+            this.selfRouter = router;
+            config.title = 'Aurelia';
+            config.map([{ route: '', name: 'blank', viewPorts: { child: { moduleId: 'blank' } } }, { route: 'parent', name: 'parent', moduleId: 'childThree' }, { route: 'child', name: 'child', viewPorts: { child: { moduleId: 'childOne' } } }]);
+        };
+
+        function childControlsParent(Router) {
+            _classCallCheck(this, childControlsParent);
+
+            this.router = Router;
+        }
+
+        childControlsParent.prototype.selfControl = function selfControl() {
+            this.selfRouter.navigateToRoute('child');
+        };
+
+        childControlsParent.prototype.parentControl = function parentControl() {
+            this.router.navigateToRoute('childOne');
+        };
+
+        return childControlsParent;
+    }()) || _class);
+});
+define('text!childControlParent.html', ['module'], function(module) { module.exports = "<template>\r\n        <div style=\"width:100%; height:1000px; background: rgb(170, 0, 165)\">\r\n            <button class=\"btn btn-dark\" click.delegate=\"selfControl()\" > Set Self Router</button>\r\n            <button class=\"btn btn-dark\" click.delegate=\"parentControl()\" >Set Parent Router</button>\r\n            <br/>\r\n            <router-view name=\"child\"></router-view>\r\n        </div>\r\n\r\n</template>"; });
 define('blank',["exports"], function (exports) {
     "use strict";
 
@@ -263,7 +304,7 @@ define('app',['exports', 'aurelia-framework', 'aurelia-router', 'bootstrap'], fu
   var App = exports.App = (_dec = (0, _aureliaFramework.inject)(_aureliaRouter.Router), _dec(_class = function () {
     App.prototype.configureRouter = function configureRouter(config, router) {
       this.router = router;
-      config.map([{ route: ['', 'blank'], name: 'blank', nav: true, moduleId: 'blank', title: 'blank' }, { route: 'sideBySide', name: 'sideBySide', nav: true, moduleId: 'sideBySide', title: 'sideBySide' }, { route: 'childOne', name: 'childOne', nav: true, moduleId: 'childOne', title: 'childOne' }]);
+      config.map([{ route: ['', 'blank'], name: 'blank', nav: true, moduleId: 'blank', title: 'blank' }, { route: 'sideBySide', name: 'sideBySide', nav: true, moduleId: 'sideBySide', title: 'sideBySide' }, { route: 'childControlParent', name: 'childControlParent', nav: true, moduleId: 'childControlParent', title: 'childControlParent' }, { route: 'childOne', name: 'childOne', nav: true, moduleId: 'childOne', title: 'childOne' }]);
     };
 
     function App(router) {
@@ -280,8 +321,12 @@ define('app',['exports', 'aurelia-framework', 'aurelia-router', 'bootstrap'], fu
       this.router.navigateToRoute('sideBySide');
     };
 
+    App.prototype.goToChildControlParent = function goToChildControlParent() {
+      this.router.navigateToRoute('childControlParent');
+    };
+
     return App;
   }()) || _class);
 });
-define('text!app.html', ['module'], function(module) { module.exports = "<template>\n    <require from=\"bootstrap/css/bootstrap.css\"></require>\n  <div style=\"width:100%; height:1000px; background: rgb(220, 110, 110)\">\n  <h1> Welcome to Child Route Demo - Parent Page</h1>\n  <button click.delegate=\"goToChild()\">Go to Child Page</button>\n  <button click.delegate=\"goToSideBySide()\">Multiple Routes Per Page</button>\n  \n    <router-view> </router-view>\n  </div>\n</template>\n"; });
+define('text!app.html', ['module'], function(module) { module.exports = "<template>\n    <require from=\"bootstrap/css/bootstrap.css\"></require>\n  <div style=\"width:100%; height:1000px; background: rgb(220, 110, 110)\">\n  <h1> Welcome to Child Route Demo - Parent Page</h1>\n  <button click.delegate=\"goToChild()\">Go to Child Page</button>\n  <button click.delegate=\"goToSideBySide()\">Multiple Routes Per Page</button>\n  <button click.delegate=\"goToChildControlParent()\">Child Controls Parent and Self</button>\n  \n    <router-view> </router-view>\n  </div>\n</template>\n"; });
 //# sourceMappingURL=app-bundle.js.map
