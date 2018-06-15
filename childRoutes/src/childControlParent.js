@@ -5,13 +5,13 @@ import { Router } from 'aurelia-router';
 @inject(Router)
 
 export class childControlsParent{
+    //everything in this has to do with the routerview on this page
     configureRouter(config,router) {
         this.selfRouter = router
         config.title = 'Aurelia';
         config.map([
-            { route: '', name: 'blank', viewPorts: { child: { moduleId: 'blank' } } },
-            { route: 'parent', name: 'parent',  moduleId: 'childThree'  },
-            { route: 'child', name: 'child',  viewPorts: { child:{ moduleId: 'childOne'  }}}
+            { route: '', name: 'blank', moduleId: 'blank'   },
+            { route: 'child', name: 'child', moduleId: 'childOne' }
         ]);
 
         
@@ -25,6 +25,7 @@ export class childControlsParent{
         this.selfRouter.navigateToRoute('child');
     }
     parentControl(){
+        //this was injected from the parent page
         this.router.navigateToRoute('childOne');
     }
 }

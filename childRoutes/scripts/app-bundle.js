@@ -1,10 +1,9 @@
-define('sideBySide',['exports', 'aurelia-framework', 'aurelia-router'], function (exports, _aureliaFramework, _aureliaRouter) {
+define('sideBySide',['exports'], function (exports) {
   'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.sideBySide = undefined;
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -12,28 +11,19 @@ define('sideBySide',['exports', 'aurelia-framework', 'aurelia-router'], function
     }
   }
 
-  var _dec, _class;
+  var sideBySide = exports.sideBySide = function () {
+    function sideBySide() {
+      _classCallCheck(this, sideBySide);
+    }
 
-  var sideBySide = exports.sideBySide = (_dec = (0, _aureliaFramework.inject)(_aureliaRouter.Router), _dec(_class = function () {
     sideBySide.prototype.configureRouter = function configureRouter(config, router) {
       this.router = router;
-      config.map([{ route: '', name: 'blank', viewPorts: { left: { route: '', moduleId: 'leftChild', viewPorts: { moduleId: 'leftChild' } },
-
+      config.map([{ route: '', name: 'default', viewPorts: { left: { route: '', moduleId: 'leftChild' },
           right: { route: '', moduleId: 'rightChild', name: 'rightChild' } } }]);
     };
 
-    function sideBySide(router) {
-      _classCallCheck(this, sideBySide);
-
-      this.router = router;
-    }
-
-    sideBySide.prototype.goToChild = function goToChild() {
-      this.router.navigateToRoute('childOne');
-    };
-
     return sideBySide;
-  }()) || _class);
+  }();
 });
 define('text!sideBySide.html', ['module'], function(module) { module.exports = "<template>\r\n    <div style=\"width:100%; height:1000px; background: rgb(220, 110, 216)\">\r\n        <div class=\"row\">\r\n            <div class=\"col-sm-12 col-md-6\">\r\n                <router-view name=\"left\"></router-view>\r\n            </div>\r\n            <div class=\"col-sm-12 col-md-6\">\r\n                    <router-view name=\"right\"></router-view>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</template>"; });
 define('rightChild',["exports"], function (exports) {
@@ -246,7 +236,7 @@ define('childControlParent',['exports', 'aurelia-framework', 'aurelia-router'], 
         childControlsParent.prototype.configureRouter = function configureRouter(config, router) {
             this.selfRouter = router;
             config.title = 'Aurelia';
-            config.map([{ route: '', name: 'blank', viewPorts: { child: { moduleId: 'blank' } } }, { route: 'parent', name: 'parent', moduleId: 'childThree' }, { route: 'child', name: 'child', viewPorts: { child: { moduleId: 'childOne' } } }]);
+            config.map([{ route: '', name: 'blank', moduleId: 'blank' }, { route: 'child', name: 'child', moduleId: 'childOne' }]);
         };
 
         function childControlsParent(Router) {
@@ -266,7 +256,7 @@ define('childControlParent',['exports', 'aurelia-framework', 'aurelia-router'], 
         return childControlsParent;
     }()) || _class);
 });
-define('text!childControlParent.html', ['module'], function(module) { module.exports = "<template>\r\n        <div style=\"width:100%; height:1000px; background: rgb(170, 0, 165)\">\r\n            <button class=\"btn btn-dark\" click.delegate=\"selfControl()\" > Set Self Router</button>\r\n            <button class=\"btn btn-dark\" click.delegate=\"parentControl()\" >Set Parent Router</button>\r\n            <br/>\r\n            <router-view name=\"child\"></router-view>\r\n        </div>\r\n\r\n</template>"; });
+define('text!childControlParent.html', ['module'], function(module) { module.exports = "<template>\r\n        <div style=\"width:100%; height:1000px; background: rgb(170, 0, 165)\">\r\n            <button class=\"btn btn-dark\" click.delegate=\"selfControl()\" > Set Self Router</button>\r\n            <button class=\"btn btn-dark\" click.delegate=\"parentControl()\" >Set Parent Router</button>\r\n            <br/>\r\n            <router-view ></router-view>\r\n        </div>\r\n\r\n</template>"; });
 define('blank',["exports"], function (exports) {
     "use strict";
 
